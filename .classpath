@@ -11,12 +11,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="gutenberg/|test/java/|test/java/|java/|test/|java/net/myexperimens/uima/" kind="src" output="target/classes" path="src">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry excluding="gutenberg/|net/myexperimens/uima/" kind="src" path="src/java"/>
 	<classpathentry kind="output" path="target/classes"/>
