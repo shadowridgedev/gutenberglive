@@ -5,4 +5,4 @@
  * @author shado
  *
  */
-package net.myexperimens.uima;
+package net.myexperimens.gutenberg;

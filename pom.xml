@@ -153,6 +153,32 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.dkpro.tc/dkpro-tc-fstore-simple -->
+		<dependency>
+			<groupId>org.dkpro.tc</groupId>
+			<artifactId>dkpro-tc-fstore-simple</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.dkpro.tc/dkpro-tc -->
+		<dependency>
+			<groupId>org.dkpro.tc</groupId>
+			<artifactId>dkpro-tc</artifactId>
+			<version>1.0.1</version>
+			<type>pom</type>
+		</dependency>
+
+
+
+
+	</dependencies>
+
+
+
+
+
 	<build>
 		<finalName>UIMATest</finalName>
 		<pluginManagement>
