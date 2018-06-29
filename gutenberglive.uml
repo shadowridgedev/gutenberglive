@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_rHt8EHgvEei4EbDjjQJJEQ" name="gutenberglive">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_sZmasHgvEei4EbDjjQJJEQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_sYH0AHgvEei4EbDjjQJJEQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sYNTkHgvEei4EbDjjQJJEQ" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sYNTkXgvEei4EbDjjQJJEQ" key="Version" value="0.0.1"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sYNTkngvEei4EbDjjQJJEQ" key="Comment" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sYNTk3gvEei4EbDjjQJJEQ" key="Copyright" value="CEA LIST - Initial API and Implementation&#xD;&#xA;"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sYNTlHgvEei4EbDjjQJJEQ" key="Date" value="2012-12-07"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_sYNTlXgvEei4EbDjjQJJEQ" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sYLeYHgvEei4EbDjjQJJEQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_INTERNAL_PROFILES/PapyrusInternal.profile.uml#_eijPgUBcEeKj6r7ThQagKA"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_INTERNAL_PROFILES/PapyrusInternal.profile.uml#_dL4lkPXAEeGSQON-DQ-5eg"/>
+  </profileApplication>
+</uml:Model>

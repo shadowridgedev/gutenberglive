@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resourceManagerConfiguration xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>extResAndBindingsDescriptor</name>
+    <description></description>
+    <version>1.0</version>
+    <vendor></vendor>
+  <externalResources></externalResources>
+  <externalResourceBindings></externalResourceBindings>
+</resourceManagerConfiguration>

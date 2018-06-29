@@ -5,4 +5,4 @@
  * @author shado
  *
  */
-package net.myexperimens.gutenberg;
+package net.myexperiments.gutenberg;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.myexperimens.gutenberg;
+package net.myexperiments.gutenberg;
 
 /**
  * @author shado
