@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class GuttenbergMYSQLStorage {
+public class GutenbergMySqlStorage {
 	// static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	String host;
 	String user;
@@ -15,7 +15,7 @@ public class GuttenbergMYSQLStorage {
 	Connection conn = null;
 	Statement stmt = null;
 
-	GuttenbergMYSQLStorage(String HOST, String USER, String PASS) throws ClassNotFoundException {
+	GutenbergMySqlStorage(String HOST, String USER, String PASS) throws ClassNotFoundException {
 		host = HOST;
 		user = USER;
 		password = PASS;

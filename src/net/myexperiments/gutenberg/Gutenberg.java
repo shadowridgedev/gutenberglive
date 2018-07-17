@@ -26,13 +26,14 @@ public class Gutenberg {
 	static Properties propfile;;
 	SolrInputDocumentWriter writer;;
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		propfile = new Properties();
 
 		InputStream in = ClassLoader.getSystemResourceAsStream("ward.properties");
 		propfile.load(in);
-		NamedList<Object> result;
+		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
+		
 		LinkedList<Book> only = new LinkedList<Book>();
 		ArrayList<Book> books = new ArrayList<Book>();
 		int numberfiles = 0;
