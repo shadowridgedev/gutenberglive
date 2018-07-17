@@ -35,7 +35,7 @@ public class Gutenberg {
 		NamedList<Object> result;
 		LinkedList<Book> only = new LinkedList<Book>();
 		ArrayList<Book> books = new ArrayList<Book>();
-		int count = 0;
+		int numberfiles = 0;
 		try {
 
 			// String base = "Z:\\gut\\";
@@ -46,12 +46,12 @@ public class Gutenberg {
 			// GuttenbergHelper helper = new
 			// GuttenbergHelper("properties\\ward.properties");
 			// int numfiles = Integer.parseInt(helper.getprop("numberfiles"));
-			String filetype = "txt";
-			count = Integer.parseInt(propfile.getProperty("numberfiles"));
+			String filetype =propfile.getProperty("filetype");
+			numberfiles = Integer.parseInt(propfile.getProperty("numberfiles"));
 	
 			Path root = Paths.get(propfile.getProperty("GutenbergFileBase"));
 			GuttenbergHelper helper = new GuttenbergHelper(propfile);
-			count = helper.searchForFilesExt(root.toFile(), only, filetype, count);
+			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles);
 
 			// only = helper.searchForFilesExt(new File(helper.GuttenbergPath), only,
 			// filetype, numfiles);

@@ -159,6 +159,14 @@
 	</repositories>
 
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.uima/uima-ducc-common -->
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uima-ducc-common</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.apache.solr/solr-common -->
 		<dependency>
 			<groupId>org.apache.solr</groupId>
