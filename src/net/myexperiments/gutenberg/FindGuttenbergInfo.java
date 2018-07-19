@@ -1,59 +1,88 @@
 package net.myexperiments.gutenberg;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class FindGuttenbergInfo {
 
-	private String title;
+	private String root;
 
-	public FindGuttenbergInfo() {
-
+	public FindGuttenbergInfo(String base) {
+		this.root = base;
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Book> getinfo(LinkedList<Book> only) throws IOException {
+	public ArrayList<Book> getinfo(ArrayList<Book> only, String ext) throws IOException {
 		ArrayList<Book> books = new ArrayList<Book>();
 
 		for (Book thebook : only) {
-			getindexfileinfo(thebook.path, books);
+			books = getindexfileinfo(thebook.path, books, ext);
 		}
 		return books;
 
 	}
 
-	private List<Book> getindexfileinfo(String filename, List<Book> books) throws IOException {
+	private ArrayList<Book> getindexfileinfo(String filename,ArrayList<Book> books, String ext) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String line = null;
-		String index = null;
+
+		Book current = new Book();
 		while ((line = br.readLine()) != null) {
-			line = removeBracket(line);
-			if (line.contains("Title:")) {
-				int len = line.length();
-				int numsize = lastDigit(TrimLastChar(line));
-				if (numsize > 0) {
-					index = line.substring(len - (numsize + 1), len).trim();
-					System.out.println("Book stored " + index + " line " + line);
-					Book current = new Book();
-					parsebook(line.substring(0, len - (numsize + 1)), current);
-					current.EtextNumber = index;
-					current.source = "Index";
-					current.verified = false;
-					current.parsed = false;
-					books.add(current);
-				}
-			
-			} else
-				System.out.println("Book not stored  " + index + " line   " + line);
+			current.author = ckstring("Author:", line);
+			if (current.author != null )   
+				System.out.println(current.getAuthor()  + " " + current.getTitle() + " " + current.getReleaseDate( ) + " " + current.getEtextNumber( ));
+
+				
+			current.title = ckstring("Title:", line);
+			current.ReleaseDate = ckstring("Release Date:", line);
+			current.language = ckstring("Language:", line);
 
 		}
+		File f = new File(filename);
+		current.filename = f.getName();
+		current.path = f.toPath().toString().replace(root, "");
+		current.source = "Gutenberg";
+		// current.text = readAllBytes(filename);
+		String EtextNumber = current.filename.replace("." + ext, "");
+		current.EtextNumber= EtextNumber;
+		books.add(current);
+	    System.out.println(current.filename + " " + current.getAuthor()  + " " + current.getTitle() + " " + current.getReleaseDate( ) + " " + current.getEtextNumber( ));
+
 		br.close();
 		return books;
+	}
+
+	private static String readAllBytes(String filePath) {
+		String content = "";
+
+		try {
+			content = new String(Files.readAllBytes(Paths.get(filePath)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return content;
+	}
+
+	String ckstring(String test, String line) {
+		if (line.contains(test)) {
+			String value = line.replace(test, "");
+			if (value != "") {
+				System.out.println("Checking " + test +"  Value " + value );
+			}
+				
+			return value;
+		}
+		return null;
 	}
 
 	String removeBracket(String line) {

@@ -36,7 +36,7 @@ public class GuttenbergHelper {
 		String CleanBook = root + "\\CleanBook\\";
 		String[] paths = new File(RemoveText).list();
 		if (paths != null) {
-			
+
 			for (String remove : paths) {
 				Path path = Paths.get(RemoveText + remove);
 
@@ -182,28 +182,34 @@ public class GuttenbergHelper {
 		return book;
 	}
 
-	public int searchForFilesExt(File root,LinkedList<Book> only, String ext, int max) throws Exception {
+	public int searchForFilesExt(File root, ArrayList<Book> only, String ext, int max, boolean flag) throws Exception {
 		// TODO Auto-generated method stub
-		if (count > max)
-			return count;
-
+		if (flag) {
+			if (count > max)
+				return count;
+		}
 		if (root == null || only == null)
 			return 0; // just for safety
 		// || !root.getPath().toString().contains("old"))
-		if (root.isDirectory()) {
-			// System.out.println(root.toString());
+	
+		if (root.isDirectory() ) {
+			
+			System.out.println("Root   " + root.toString());
+
 			for (File file : root.listFiles()) {
-				if (file != null) {
-					searchForFilesExt(file, only, ext, max);
+				String name = file.toString();
+				if (file != null && !name.contains("cache")  && !name.contains("etext") && !name.contains("old")  &&  !name.contains("-h")  &&  !name.contains("image") )  {
+					searchForFilesExt(file, only, ext, max, flag);
 				}
 			}
-		} else if (root.isFile() && root.getName().endsWith(ext)) {
+		} else if (root.isFile() && root.getName().endsWith(ext) && !root.getAbsoluteFile().toString().contains("-")) {
 			count++;
 			Book thisbook = new Book();
-	
+
 			thisbook.filename = root.getName();
 			thisbook.path = root.getAbsolutePath();
-			System.out.println(count + "    " +thisbook.filename );
+			thisbook.idBook = count;
+//			System.out.println(count + "    " + thisbook.filename  + " " + root.getAbsolutePath());
 			only.add(thisbook);
 		}
 		return count;
@@ -218,13 +224,13 @@ public class GuttenbergHelper {
 	/*
 	 * void ProcessFiles(ArrayList<File> only, int max) { while ( i++ != max) {
 	 * 
-	 * for (File current : only) { String result = ("File " + current.getName()
-	 * + " "); if (isGuttenberg(current)) { result += (" is Guttenbberg"); Path
-	 * local = Paths.get(GuttenbergPath + current.getName());
-	 * Files.copy(current.toPath(), local, REPLACE_EXISTING); Book book = new
-	 * Book(); book.setPath(local.toString()); book.setText(new
-	 * String(Files.readAllBytes(local))); book.setName(current.getName());
-	 * metadata = GetBookMetadata(book.text);
+	 * for (File current : only) { String result = ("File " + current.getName() +
+	 * " "); if (isGuttenberg(current)) { result += (" is Guttenbberg"); Path local
+	 * = Paths.get(GuttenbergPath + current.getName()); Files.copy(current.toPath(),
+	 * local, REPLACE_EXISTING); Book book = new Book();
+	 * book.setPath(local.toString()); book.setText(new
+	 * String(Files.readAllBytes(local))); book.setName(current.getName()); metadata
+	 * = GetBookMetadata(book.text);
 	 * 
 	 * // add own metadata metadata.put("extra", "Things");
 	 * 
@@ -242,11 +248,9 @@ public class GuttenbergHelper {
 	 * " is not Guttenberg"; } System.out.println(result);
 	 * 
 	 * } /* int problem = count - (helper.GuttenbergFiles +
-	 * helper.NotGuttenbergFiles); if (problem != 0)
-	 * System.out.println("Problem " + problem);
-	 * System.out.println("Final count Guttenberg Files" +
+	 * helper.NotGuttenbergFiles); if (problem != 0) System.out.println("Problem " +
+	 * problem); System.out.println("Final count Guttenberg Files" +
 	 * helper.GuttenbergFiles + " Not Guttenberg Files " +
 	 * helper.NotGuttenbergFiles); }
 	 */
 }
-

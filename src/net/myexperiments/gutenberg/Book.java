@@ -12,6 +12,7 @@ public class Book implements  Serializable {
 	String title;
 	String author ;
 	String date;
+	String ReleaseDate;
 	String text ;
 	String extra ;
 	String filename ;
@@ -20,7 +21,13 @@ public class Book implements  Serializable {
 	String source ;
 	String name ;
 	boolean verified = false;
-    /**
+    public String getReleaseDate() {
+		return ReleaseDate;
+	}
+	public void setReleaseDate(String releaseDate) {
+		ReleaseDate = releaseDate;
+	}
+	/**
 	 * @return the idBook
 	 */
 	public int getIdBook() {
@@ -176,7 +183,14 @@ public class Book implements  Serializable {
 	public void setParsed(boolean parsed) {
 		this.parsed = parsed;
 	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 	boolean parsed = false;
+	public String language;
 
 
 

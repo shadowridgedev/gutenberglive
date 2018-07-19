@@ -34,7 +34,7 @@ public class Gutenberg {
 		propfile.load(in);
 		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
 		
-		LinkedList<Book> only = new LinkedList<Book>();
+		ArrayList<Book> only = new 	ArrayList<Book> ();
 		ArrayList<Book> books = new ArrayList<Book>();
 		int numberfiles = 0;
 		try {
@@ -49,17 +49,19 @@ public class Gutenberg {
 			// int numfiles = Integer.parseInt(helper.getprop("numberfiles"));
 			String filetype =propfile.getProperty("filetype");
 			numberfiles = Integer.parseInt(propfile.getProperty("numberfiles"));
-	
+	        String createtable = propfile.getProperty("createtable");
+	        
 			Path root = Paths.get(propfile.getProperty("GutenbergFileBase"));
 			GuttenbergHelper helper = new GuttenbergHelper(propfile);
-			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles);
+			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, true);
 
 			// only = helper.searchForFilesExt(new File(helper.GuttenbergPath), only,
 			// filetype, numfiles);
 
-			FindGuttenbergInfo info = new FindGuttenbergInfo();
-			books = info.getinfo(only);
-			only.clear();
+			FindGuttenbergInfo info = new FindGuttenbergInfo(root.toString());
+			only = info.getinfo(only, filetype);
+	
+			showcapture(only);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -68,6 +70,23 @@ public class Gutenberg {
 
 	}
 
+	
+	static void showcapture ( ArrayList<Book> books)
+	{
+		int count = 0, total = 0;
+		for ( Book thebook : books) {
+			total++;
+			if ( thebook.filename != null)  {
+				count++;
+				printbook(thebook);
+			}		
+		}
+		System.out.println( "Done "+ count + " " + total  );
+	}
+	
+	static void printbook( Book current) {
+		System.out.println("Book " + current.getAuthor()  + " " + current.getTitle() + " " + current.getDate( ) + " " + current.getEtextNumber( ));
+	}
 	private static void writedoc() {
 	}
 

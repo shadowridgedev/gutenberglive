@@ -159,7 +159,24 @@
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>xxx</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>2.2.5</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.sqlapp/sqlapp-core-mariadb -->
+		<dependency>
+			<groupId>com.sqlapp</groupId>
+			<artifactId>sqlapp-core-mariadb</artifactId>
+			<version>0.8.5</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
