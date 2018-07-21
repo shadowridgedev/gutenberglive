@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -191,15 +192,24 @@ public class GuttenbergHelper {
 		if (root == null || only == null)
 			return 0; // just for safety
 		// || !root.getPath().toString().contains("old"))
-	
-		if (root.isDirectory() ) {
-			
-			System.out.println("Root   " + root.toString());
 
-			for (File file : root.listFiles()) {
-				String name = file.toString();
-				if (file != null && !name.contains("cache")  && !name.contains("etext") && !name.contains("old")  &&  !name.contains("-h")  &&  !name.contains("image") )  {
-					searchForFilesExt(file, only, ext, max, flag);
+		if (root.isDirectory()) {
+
+			System.out.println("Root   " + root.toString());
+			String name = root.toString();
+			
+			if (root != null && !name.contains("cache") && !name.contains("etext") && !name.contains("old")
+					&& !name.contains("-h") && !name.contains("image")) {
+                 File[] files =  root.listFiles();
+                
+				if (files != null ) 
+					for (File file : files) {
+					name = file.toString();
+					System.out.println("File   " + name);
+					if (file != null && !name.contains("cache") && !name.contains("etext") && !name.contains("old")
+							&& !name.contains("-h") && !name.contains("image") && !name.contains("zip")) {
+						searchForFilesExt(file, only, ext, max, flag);
+					}
 				}
 			}
 		} else if (root.isFile() && root.getName().endsWith(ext) && !root.getAbsoluteFile().toString().contains("-")) {

@@ -16,7 +16,9 @@ public class MariaDbHelper {
 		if (table == "") table = prop.getProperty("table");
 		Connection connection;
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://"+ host + ":3306/" +table, username, mysqlpassword );
+		// "jdbc:mariadb://localhost:3306/DB?user=root&password=myPassword");
+			String con = "jdbc:mariadb://"+ host + ":3306/gutenberg?user="+ username + "&password=" + mysqlpassword;
+			connection = DriverManager.getConnection(con );
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
