@@ -4,22 +4,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class MariaDbHelper {
-
+	String con;
+	String mysqlpassword ;
+	Connection connection;
+	String username;
+	String hostname;
+	Statement stmt;
+	
 	boolean createconnection(Properties prop, String host, String sql, String table) {
-		String username = prop.getProperty("mysqluser");
-		String mysqlpassword = prop.getProperty("mysqlpassword");
+		username = prop.getProperty("mysqluser");
+		mysqlpassword = prop.getProperty("mysqlpassword");
 		if (host=="")  host = prop.getProperty("mysqlhost");
 		if (sql=="")  sql = prop.getProperty("createtable");
-		if (table == "") table = prop.getProperty("table");
-		Connection connection;
+        hostname = host;
 		try {
 		// "jdbc:mariadb://localhost:3306/DB?user=root&password=myPassword");
-			String con = "jdbc:mariadb://"+ host + ":3306/gutenberg?user="+ username + "&password=" + mysqlpassword;
+			String con = "jdbc:mariadb://"+ hostname + ":3306/gutenberg?user="+ username + "&password=" + mysqlpassword;
 			connection = DriverManager.getConnection(con );
-			Statement stmt = connection.createStatement();
+			stmt = connection.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
 			connection.close();
@@ -30,5 +36,52 @@ public class MariaDbHelper {
 		}
 		return true;
 	}
+		void openConnection() {
+			// Open a connection
+			System.out.println("Connecting to database...");
+			try {
+				connection = DriverManager.getConnection("jdbc:mariadb://" + hostname + ":3306/gutenberg?user="+ username + "&password=" + mysqlpassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-}
+		void StoreBooks(ArrayList<Book> books) {
+			for (Book book : books) {
+				InsertBook(book);
+			}
+		}
+
+		public void InsertBook(Book book) {
+			System.out.println("Writimg records into the table...");
+			try {
+				stmt = connection.createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String path = book.getPath();
+			String author = book.getAuthor();
+			String title = book.getTitle();
+			String date = book.getDate();
+			String file = book.getFilename();
+			/*
+			 * String sql =
+			 * "INSERT  INTO guttenberg ( Author, Title, Text, Date, Path, File) VALUES ( `"
+			 * + author +"`,`" +title +"`," + "LOAD_FILE(`" + path +"`),`" +
+			 * date+"`,`" + path +"`,`"+file.getName()+ "` )"; // String sql =
+			 * "INSERT INTO guttenberg ( Title) VALUES ( 'Unknown')"; // String sql
+			 * = "INSERT INTO `guttenberg` ( `Text`) VALUES (  LOAD_FILE( '" + Path
+			 * + "'))"; // String sql =
+			 * "INSERT INTO `guttenberg` (  `Path`, `File`) VALUES ( " + "Test," +
+			 * "twat" + ")";
+			 * 
+			 * try { stmt.executeUpdate(sql); } catch (SQLException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); }
+			 */
+		}	
+		
+	}
+
+
