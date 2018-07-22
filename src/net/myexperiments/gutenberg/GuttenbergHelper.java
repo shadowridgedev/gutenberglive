@@ -199,7 +199,7 @@ public class GuttenbergHelper {
 			String name = root.toString();
 			
 			if (root != null && !name.contains("cache") && !name.contains("etext") && !name.contains("old")
-					&& !name.contains("-h") && !name.contains("image")) {
+					&& !name.contains("-h") && !name.contains("image") && !name.contains("zip")) {
                  File[] files =  root.listFiles();
                 
 				if (files != null ) 
