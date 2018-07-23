@@ -33,9 +33,8 @@ public class Gutenberg {
 		InputStream in = ClassLoader.getSystemResourceAsStream("ward.properties");
 		propfile.load(in);
 		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
-		MariaDbHelper dbsql = new MariaDbHelper();
-		
 
+		MariaDbHelper dbsql = new MariaDbHelper();
 		dbsql.createconnection(propfile, "", "", "");
 		ArrayList<Book> only = new 	ArrayList<Book> ();
 		ArrayList<Book> books = new ArrayList<Book>();
@@ -53,8 +52,9 @@ public class Gutenberg {
 			String filetype =propfile.getProperty("filetype");
 			numberfiles = Integer.parseInt(propfile.getProperty("numberfiles"));
 	        String createtable = propfile.getProperty("createtable");
-	        
+
 			Path root = Paths.get(propfile.getProperty("GutenbergFileBase"));
+			
 			GuttenbergHelper helper = new GuttenbergHelper(propfile);
 			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, false);
 
