@@ -30,32 +30,58 @@ public class FindGuttenbergInfo {
 
 	}
 
-	private ArrayList<Book> getindexfileinfo(String filename,ArrayList<Book> books, String ext) throws IOException {
+	private ArrayList<Book> getindexfileinfo(String filename, ArrayList<Book> books, String ext) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String line = null;
-
 		Book current = new Book();
+		Book newbook = new Book();
 		while ((line = br.readLine()) != null) {
+			
+			newbook = current;
 			current.author = ckstring("Author:", line);
-			if (current.author != null )   
-				System.out.println(current.getAuthor()  + " " + current.getTitle() + " " + current.getReleaseDate( ) + " " + current.getEtextNumber( ));
-
-				
 			current.title = ckstring("Title:", line);
 			current.ReleaseDate = ckstring("Release Date:", line);
 			current.language = ckstring("Language:", line);
+			if (ckstring("Author:", line) != null )
+				System.out.println( "Author not null  " +ckstring("Author:", line ));
+			if ( current.author != null)
 
+				System.out.println( "Current Author not null  " +current.author );
+			if (ckstring("Title:", line) != null )
+				System.out.println( "Title not null  " +ckstring("Title:", line ));
+			if ( current.title != null)
+
+				System.out.println( "Current Title not null  " +current.title );
+			if (current != newbook) {
+				System.out.println("Goodbook " + current.getAuthor() + " " + current.getTitle() + " "
+						+ current.getReleaseDate() + " " + current.getEtextNumber());
+			}
+			if (goodbook(current)) {
+				System.out.println("Goodbook " + current.getAuthor() + " " + current.getTitle() + " "
+						+ current.getReleaseDate() + " " + current.getEtextNumber());
+			}
+		}
+		if (goodbook(current)) {
+			System.out.println("Storing " + current.getAuthor() + " " + current.getTitle() + " "
+					+ current.getReleaseDate() + " " + current.getEtextNumber());
+			books.add(current);
 		}
 		File f = new File(filename);
 		current.filename = f.getName();
 		current.path = f.toPath().toString().replace(root, "");
 		current.source = "Gutenberg";
-		// current.text = readAllBytes(filename);
+		current.text = readAllBytes(filename);
 		String EtextNumber = current.filename.replace("." + ext, "");
-		current.EtextNumber= EtextNumber;
-		books.add(current);
-	    System.out.println(current.filename + " " + current.getAuthor()  + " " + current.getTitle() + " " + current.getReleaseDate( ) + " " + current.getEtextNumber( ));
+		current.EtextNumber = EtextNumber;
+		current.title = "Title";
+		current.author = "Author";
+		if (goodbook(current)) {
+			// System.out.println(current.filename + " " + current.getAuthor() + " " +
+			// current.getTitle() + " "
+			// + current.getReleaseDate() + " " + current.getEtextNumber());
+			// books.add(current);
+		}
 
 		br.close();
 		return books;
@@ -73,16 +99,42 @@ public class FindGuttenbergInfo {
 		return content;
 	}
 
+	Boolean chbookforNull(Book book) {
+
+		if (ckfield(book.author))
+			return true;
+		if (ckfield(book.name))
+			return true;
+		if (ckfield(book.language))
+			return true;
+		if (ckfield(book.title))
+			return true;
+		if (ckfield(book.date))
+			return true;
+		if (ckfield(book.ReleaseDate))
+			return true;
+		return false;
+	}
+
+	boolean ckfield(String value) {
+		return (value != null);
+	}
+
 	String ckstring(String test, String line) {
 		if (line.contains(test)) {
-			String value = line.replace(test, "");
-			if (value != "") {
-				System.out.println("Checking " + test +"  Value " + value );
+			line = line.replace(test, "");
+			if (line != "") {
+				System.out.println("Checking " + test + "  Value " + line);
+				return line.trim();
 			}
-				
-			return value;
 		}
 		return null;
+	}
+
+	boolean goodbook(Book book) {
+		if (ckfield(book.author) && (ckfield(book.title)))
+			return true;
+		return false;
 	}
 
 	String removeBracket(String line) {

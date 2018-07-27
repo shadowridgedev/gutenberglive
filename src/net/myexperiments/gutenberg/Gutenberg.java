@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,8 @@ import de.citec.scie.ner.db.mapdb.MapDBDatabase;
 public class Gutenberg {
 	static Properties propfile;;
 	SolrInputDocumentWriter writer;;
-
+	static MariaDbHelper dbsql;
+	static FindGuttenbergInfo info;
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		propfile = new Properties();
@@ -34,7 +36,7 @@ public class Gutenberg {
 		propfile.load(in);
 		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
 
-		MariaDbHelper dbsql = new MariaDbHelper();
+		dbsql = new MariaDbHelper();
 		dbsql.createconnection(propfile, "", "", "");
 		ArrayList<Book> only = new 	ArrayList<Book> ();
 		ArrayList<Book> books = new ArrayList<Book>();
@@ -61,10 +63,10 @@ public class Gutenberg {
 			// only = helper.searchForFilesExt(new File(helper.GuttenbergPath), only,
 			// filetype, numfiles);
 
-			FindGuttenbergInfo info = new FindGuttenbergInfo(root.toString());
-			only = info.getinfo(only, filetype);
+			info = new FindGuttenbergInfo(root.toString());
+			books = info.getinfo(only, filetype);
 	
-			showcapture(only);
+			showcapture(books);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -74,16 +76,20 @@ public class Gutenberg {
 	}
 
 	
-	static void showcapture ( ArrayList<Book> books)
+	static void showcapture ( ArrayList<Book> books) throws SQLException
 	{
+		
 		int count = 0, total = 0;
+		dbsql.openConnection();
 		for ( Book thebook : books) {
 			total++;
-			if ( thebook.filename != null)  {
+			if ( !info.goodbook(thebook))  {
 				count++;
 				printbook(thebook);
+				dbsql.InsertBook(thebook);
 			}		
 		}
+		dbsql.closeconnection();
 		System.out.println( "Done "+ count + " " + total  );
 	}
 	

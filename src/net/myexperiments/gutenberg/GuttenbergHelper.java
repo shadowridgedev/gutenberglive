@@ -205,7 +205,7 @@ public class GuttenbergHelper {
 				if (files != null ) 
 					for (File file : files) {
 					name = file.toString();
-					System.out.println("File   " + name);
+//					System.out.println("File   " + name);
 					if (file != null && !name.contains("cache") && !name.contains("etext") && !name.contains("old")
 							&& !name.contains("-h") && !name.contains("image") && !name.contains("zip")) {
 						searchForFilesExt(file, only, ext, max, flag);
@@ -232,35 +232,37 @@ public class GuttenbergHelper {
 	}
 
 	/*
-	 * void ProcessFiles(ArrayList<File> only, int max) { while ( i++ != max) {
-	 * 
-	 * for (File current : only) { String result = ("File " + current.getName() +
-	 * " "); if (isGuttenberg(current)) { result += (" is Guttenbberg"); Path local
-	 * = Paths.get(GuttenbergPath + current.getName()); Files.copy(current.toPath(),
-	 * local, REPLACE_EXISTING); Book book = new Book();
-	 * book.setPath(local.toString()); book.setText(new
-	 * String(Files.readAllBytes(local))); book.setName(current.getName()); metadata
-	 * = GetBookMetadata(book.text);
-	 * 
-	 * // add own metadata metadata.put("extra", "Things");
-	 * 
-	 * System.out.println(Arrays.asList(metadata)); // method 1 book =
-	 * addMetadata(book, metadata);
-	 * 
-	 * book = helper.RemoveText(book); book.setPath(CleanBook + book.getName());
-	 * Files.write(Paths.get(book.getPath()), book.getText().getBytes());
-	 * 
-	 * result += current.getPath() + "    " + current.getName();
-	 * storage.InsertBook(book);
-	 * 
-	 * } else { Path local = Paths.get(NotGuttenbergPath + current.getName());
-	 * Files.copy(current.toPath(), local, REPLACE_EXISTING); result +=
-	 * " is not Guttenberg"; } System.out.println(result);
-	 * 
-	 * } /* int problem = count - (helper.GuttenbergFiles +
-	 * helper.NotGuttenbergFiles); if (problem != 0) System.out.println("Problem " +
-	 * problem); System.out.println("Final count Guttenberg Files" +
-	 * helper.GuttenbergFiles + " Not Guttenberg Files " +
-	 * helper.NotGuttenbergFiles); }
-	 */
+	  void ProcessFiles(ArrayList<File> only, int max) { while ( i++ != max) {
+	  
+	  for (File current : only) { String result = ("File " + current.getName() +
+	  " "); if (isGuttenberg(current)) { result += (" is Guttenbberg"); 
+	  Path local
+	  }
+	  = Paths.get(GuttenbergPath + current.getName()); Files.copy(current.toPath(),
+	  local, REPLACE_EXISTING); Book book = new Book();
+	  book.setPath(local.toString()); book.setText(new
+	  String(Files.readAllBytes(local))); book.setName(current.getName()); metadata
+	  = GetBookMetadata(book.text);
+	  
+	  // add own metadata metadata.put("extra", "Things");
+	  
+	  System.out.println(Arrays.asList(metadata)); // method 1 book =
+	  addMetadata(book, metadata);
+	  
+	  book = helper.RemoveText(book); book.setPath(CleanBook + book.getName());
+	  Files.write(Paths.get(book.getPath()), book.getText().getBytes());
+	  
+	  result += current.getPath() + "    " + current.getName();
+	  storage.InsertBook(book);
+	  
+	  } else { Path local = Paths.get(NotGuttenbergPath + current.getName());
+	  Files.copy(current.toPath(), local, REPLACE_EXISTING); result +=
+	  " is not Guttenberg"; } System.out.println(result);
+	  
+	  } / int problem = count - (helper.GuttenbergFiles +
+	  helper.NotGuttenbergFiles); if (problem != 0) System.out.println("Problem " +
+	  problem); System.out.println("Final count Guttenberg Files" +
+	  helper.GuttenbergFiles + " Not Guttenberg Files " +
+	  helper.NotGuttenbergFiles); }
+	*/ 
 }
