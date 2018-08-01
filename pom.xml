@@ -159,6 +159,93 @@
 	</repositories>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-runner -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-runner</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-core -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-core</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-uima -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-uima</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-resources -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-resources</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-annotators -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-annotators</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-consumers -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-consumers</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-jobs -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-jobs</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-history -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-history</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-collectionreaders -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-collectionreaders</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-orderers -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-orderers</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen</artifactId>
+			<version>2.4.0</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/uk.gov.dstl.baleen/baleen-runner -->
+		<dependency>
+			<groupId>uk.gov.dstl.baleen</groupId>
+			<artifactId>baleen-runner</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
