@@ -13,13 +13,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentNavigableMap;
 
 import org.apache.solr.common.util.NamedList;
+import org.mapdb.DB;
+import org.mapdb.DB.HashMapMaker;
+import org.mapdb.DB.TreeMapMaker;
 import org.mapdb.DBMaker;
+import org.mapdb.HTreeMap;
 
 import de.citec.scie.ner.db.mapdb.MapDBDatabase;
 
@@ -28,29 +34,35 @@ public class Gutenberg {
 	SolrInputDocumentWriter writer;;
 	static MariaDbHelper dbsql;
 	static FindGuttenbergInfo info;
+
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		propfile = new Properties();
-
 		InputStream in = ClassLoader.getSystemResourceAsStream("ward.properties");
 		propfile.load(in);
+		
 		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
-
+		String dbFile = propfile.getProperty("DBLocation");
+		// Initialize a MapDB database
+		DB db = DBMaker.fileDB(new File(dbFile))
+		          .closeOnJvmShutdown()
+		.make();
+		// Create a Map:
+		HashMapMaker<?, ?> myMap = db.hashMap(dbFile);
+		HTreeMap<String, String> myonly= (HTreeMap<String, String>) myMap.create();
+		myonly.put("Dog", "cat");
+		
+		
 		dbsql = new MariaDbHelper();
 		dbsql.createconnection(propfile, "", "", "");
+		
 		ArrayList<Book> only = new 	ArrayList<Book> ();
 		ArrayList<Book> books = new ArrayList<Book>();
 		int numberfiles = 0;
+		
 		try {
 
-			// String base = "Z:\\gut\\";
-			// String base = "/media/sf_gutenberg/";
 
-			// String base = args[0];
-
-			// GuttenbergHelper helper = new
-			// GuttenbergHelper("properties\\ward.properties");
-			// int numfiles = Integer.parseInt(helper.getprop("numberfiles"));
 			String filetype =propfile.getProperty("filetype");
 			numberfiles = Integer.parseInt(propfile.getProperty("numberfiles"));
 	        String createtable = propfile.getProperty("createtable");
@@ -59,9 +71,6 @@ public class Gutenberg {
 			
 			GuttenbergHelper helper = new GuttenbergHelper(propfile);
 			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, false);
-
-			// only = helper.searchForFilesExt(new File(helper.GuttenbergPath), only,
-			// filetype, numfiles);
 
 			info = new FindGuttenbergInfo(root.toString());
 			books = info.getinfo(only, filetype);
@@ -75,27 +84,27 @@ public class Gutenberg {
 
 	}
 
-	
-	static void showcapture ( ArrayList<Book> books) throws SQLException
-	{
-		
+	static void showcapture(ArrayList<Book> books) throws SQLException {
+
 		int count = 0, total = 0;
 		dbsql.openConnection();
-		for ( Book thebook : books) {
+		for (Book thebook : books) {
 			total++;
-			if ( !info.goodbook(thebook))  {
+			if (!info.goodbook(thebook)) {
 				count++;
 				printbook(thebook);
 				dbsql.InsertBook(thebook);
-			}		
+			}
 		}
 		dbsql.closeconnection();
-		System.out.println( "Done "+ count + " " + total  );
+		System.out.println("Done " + count + " " + total);
 	}
-	
-	static void printbook( Book current) {
-		System.out.println("Book " + current.getAuthor()  + " " + current.getTitle() + " " + current.getDate( ) + " " + current.getEtextNumber( ));
+
+	static void printbook(Book current) {
+		System.out.println("Book " + current.getAuthor() + " " + current.getTitle() + " " + current.getDate() + " "
+				+ current.getEtextNumber());
 	}
+
 	private static void writedoc() {
 	}
 
