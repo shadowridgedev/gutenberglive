@@ -49,8 +49,8 @@ public class Gutenberg {
 		.make();
 		// Create a Map:
 		HashMapMaker<?, ?> myMap = db.hashMap(dbFile);
-		HTreeMap<String, String> myonly= (HTreeMap<String, String>) myMap.create();
-		myonly.put("Dog", "cat");
+		HTreeMap<String, Book> myonly= (HTreeMap<String, Book>) myMap.create();
+	
 		
 		
 		dbsql = new MariaDbHelper();

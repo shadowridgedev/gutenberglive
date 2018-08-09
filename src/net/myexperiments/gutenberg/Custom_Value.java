@@ -9,7 +9,7 @@ import java.util.Map;
 
 /*
  *	Demonstrates HashMaps with non-standard types of objects as key or value.
- */
+ 
 public class Custom_Value {
 
 
@@ -27,7 +27,7 @@ public class Custom_Value {
      *
      *   3) Even your values should implement equalsTo method for CAS (compare-and-swap) operations.
      *
-     */
+     
     public static class Person implements Serializable{
         final String name;
         final String city;
@@ -61,7 +61,7 @@ public class Custom_Value {
 
     }
 
-  /* 
+   
         // Open db in temp directory
         File f = Utils.tempDbFile();
 		DB db = DBMaker.newFileDB(f)
@@ -115,8 +115,10 @@ public class Custom_Value {
 
 	}
 
-*/
+
 }
+
+*/
 	
 
 	
