@@ -23,6 +23,7 @@ import org.mapdb.DB.HashMapMaker;
 import org.mapdb.DB.TreeMapMaker;
 import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
+import org.mapdb.Serializer;
 
 import de.citec.scie.ner.db.mapdb.MapDBDatabase;
 public class MapDBHelper {
@@ -34,4 +35,6 @@ public class MapDBHelper {
 				.make();
 		return db;
 	}
+	
+
 }

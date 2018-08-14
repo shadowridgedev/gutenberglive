@@ -183,7 +183,7 @@ public class GuttenbergHelper {
 		return book;
 	}
 
-	public int searchForFilesExt(File root, ArrayList<Book> only, String ext, int max, boolean flag) throws Exception {
+	public int searchForFilesExt(File root, List<Book> only, String ext, int max, boolean flag) throws Exception {
 		// TODO Auto-generated method stub
 		if (flag) {
 			if (count > max)
@@ -195,7 +195,7 @@ public class GuttenbergHelper {
 
 		if (root.isDirectory()) {
 
-			System.out.println("Root   " + root.toString());
+//			System.out.println("Root   " + root.toString());
 			String name = root.toString();
 			
 			if (root != null && !name.contains("cache") && !name.contains("etext") && !name.contains("old")

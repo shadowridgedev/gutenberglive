@@ -93,7 +93,6 @@ public class GuttenbergHibernateStorage {
 	List<Book> returnBook(String field, String value) {
 		newSession = factory.openSession();
 		newSession.beginTransaction();
-		@SuppressWarnings("deprecation")
 		Query<Book> q = newSession.createNativeQuery("SELECT * FROM guttenberg.book  where " + field + " = " + value)
 				.addEntity(net.myexperiments.gutenberg.Book.class);
 		newSession.getTransaction().commit();

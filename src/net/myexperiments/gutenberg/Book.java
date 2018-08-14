@@ -1,7 +1,14 @@
 package net.myexperiments.gutenberg;
 
 
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 import java.io.Serializable;
+
+import org.mapdb.DataInput2;
+import org.mapdb.DataOutput2;
+import org.mapdb.Serializer;
 
 public class Book implements  Serializable {
 	/**
@@ -13,7 +20,7 @@ public class Book implements  Serializable {
 	String author ;
 	String date;
 	String ReleaseDate;
-	String text ;
+	byte[] text ;
 	String extra ;
 	String filename ;
 	String path;
@@ -79,13 +86,15 @@ public class Book implements  Serializable {
 	 * @return the text
 	 */
 	public String getText() {
-		return text;
+		if (text != null)
+		return text.toString();
+		else return null;
 	}
 	/**
 	 * @param text the text to set
 	 */
 	public void setText(String text) {
-		this.text = text;
+		this.text =  text.getBytes();
 	}
 	/**
 	 * @return the extra
@@ -192,7 +201,59 @@ public class Book implements  Serializable {
 	boolean parsed = false;
 	public String language;
 
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Book theBook= (Book) o;
+/*
+        if (title != null ? !title.equals(theBook.title) ) return false;
+        if (author != null ? !author.equals(theBook.author) : theBook.author != null) return false;
+        if (city != null ? !city.equals(theBook.city) : theBook.city != null) return false;
+        if (name != null ? !name.equals(theBook.name) : theBook.name != null) return false;
+        if (city != null ? !city.equals(theBook.city) : theBook.city != null) return false;
+        if (name != null ? !name.equals(theBook.name) : theBook.name != null) return false;
+        
+    	String title;
+    	String author ;
+    	String date;
+    	String ReleaseDate;
+    	String text ;
+    	String extra ;
+    	String filename ;
+    	String path;
+    	String EtextNumber ;
+    	String source ;
+    	String name ;
+    	boolean verified = false;
+    	*/
+        return true;
+    }
+
+	
+    class CustomSerializer implements Serializer<Book>, Serializable{
+
+        public void serialize(DataOutput out, Book value) throws IOException {
+            out.writeUTF(value.getName());
+            out.writeUTF(value.getAuthor());
+        }
+
+        public Book  deserialize(DataInput in, int available) throws IOException {
+            return new Book();
+        }
+
+		@Override
+		public void serialize(DataOutput2 out, Book value) throws IOException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Book deserialize(DataInput2 input, int available) throws IOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    }
 
 
 }

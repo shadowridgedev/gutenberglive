@@ -1,0 +1,17 @@
+java.sql.SQLException: Could not send query: query size is >= to max_allowed_packet (33554432)
+	at org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.handleIoException(AbstractQueryProtocol.java:1782)
+	at org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:202)
+	at org.mariadb.jdbc.MariaDbStatement.executeInternal(MariaDbStatement.java:328)
+	at org.mariadb.jdbc.MariaDbStatement.executeUpdate(MariaDbStatement.java:520)
+	at net.myexperiments.gutenberg.MySqlStorageHelper.InsertBook(MySqlStorageHelper.java:149)
+	at net.myexperiments.gutenberg.MySqlStorageHelper.StoreBooks(MySqlStorageHelper.java:96)
+	at net.myexperiments.gutenberg.Gutenberg.main(Gutenberg.java:64)
+Caused by: java.net.SocketException: Connection reset by peer: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:111)
+	at java.net.SocketOutputStream.write(SocketOutputStream.java:155)
+	at org.mariadb.jdbc.internal.io.output.StandardPacketOutputStream.flushBuffer(StandardPacketOutputStream.java:110)
+	at org.mariadb.jdbc.internal.io.output.AbstractPacketOutputStream.flush(AbstractPacketOutputStream.java:172)
+	at org.mariadb.jdbc.internal.protocol.AbstractQueryProtocol.executeQuery(AbstractQueryProtocol.java:196)
+	... 5 more
+SQLState(HY)
