@@ -56,7 +56,7 @@ public class Gutenberg {
 			Path root = Paths.get(propfile.getProperty("GutenbergFileBase"));
 
 			GuttenbergHelper helper = new GuttenbergHelper(propfile);
-			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, false);
+			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, true);
 
 			info = new FindGuttenbergInfo(root.toString());
 			books = info.getinfo(only, filetype);
