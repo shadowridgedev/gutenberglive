@@ -20,13 +20,14 @@ public class Book implements  Serializable {
 	String author ;
 	String date;
 	String ReleaseDate;
-	byte[] text ;
+    String text ;
 	String extra ;
 	String filename ;
 	String path;
 	String EtextNumber ;
 	String source ;
 	String name ;
+	int size;
 	boolean verified = false;
     public String getReleaseDate() {
 		return ReleaseDate;
@@ -94,7 +95,7 @@ public class Book implements  Serializable {
 	 * @param text the text to set
 	 */
 	public void setText(String text) {
-		this.text =  text.getBytes();
+		this.text =  text;
 	}
 	/**
 	 * @return the extra

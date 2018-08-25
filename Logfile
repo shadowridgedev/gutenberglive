@@ -1,0 +1,4 @@
+DriverManager.getConnection("jdbc:mariadb://610-1:3306/gut?user=root&password=cloudera")
+    trying org.postgresql.Driver
+    trying org.mariadb.jdbc.Driver
+getConnection returning org.mariadb.jdbc.Driver

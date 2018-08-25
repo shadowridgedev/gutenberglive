@@ -61,6 +61,13 @@ public class MySqlStorageHelper {
 			PrintWriter log = new PrintWriter("Logfile");
 			conn = DriverManager.getConnection(DBType + host + ":3306/", user, password);
 			DriverManager.setLogWriter(log);
+//			System.out.println("Writing records into the table...");
+			try {
+				stmt = conn.createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +97,13 @@ public class MySqlStorageHelper {
 	}
 
 	void StoreBooks(ArrayList<Book> books) throws IOException {
-		openConnection();
+		openConnection();//		System.out.println("Writing records into the table...");
+		try {
+			stmt = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (Book book : books) {
 			try {
 				InsertBook(book);
@@ -103,13 +116,7 @@ public class MySqlStorageHelper {
 	}
 
 	public void InsertBook(Book book) throws IOException, SQLException {
-//		System.out.println("Writing records into the table...");
-		try {
-			stmt = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		int idBook = book.getIdBook();
 		String etextnumber = book.getEtextNumber();
 		String path = book.getPath();
@@ -126,7 +133,7 @@ public class MySqlStorageHelper {
 //		path = escape(path);
 //		String sql = "INSERT  INTO gutenberg.books (  idBook, Title, Author, Date, File, Filename, Path, EtextNumber, Name) VALUES ("'" +count, title, author, date, file, filename, path, etextnumber, name )";
 //		String sql = "INSERT  INTO guttenberg.books ( Author, Title, Date, Path, File, Text) VALUES (" + "'" + author +  "',"  + title + "',"  + "'," + date + "`," + path + "`,`" + file + LOAD_FILE(rawpath)" )";
-		String sql = "INSERT  INTO gutenberg.books ( idBook, Author, Title, Date, Path, File) VALUES ( '" + etextnumber
+		String sql = "INSERT  INTO gut.books ( idBook, Author, Title, Date, Path, File) VALUES ( '" + etextnumber
 				+ "','" + author + "','" + title + "','" + date + "','" + path + "','" + file + "' )";
 
 		// String insertStr = "INSERT INTO users VALUES (+"'" +name +"', " +"'" +email
@@ -147,7 +154,7 @@ public class MySqlStorageHelper {
 
 		try {
 			stmt.executeUpdate(
-					"UPDATE gutenberg.books SET text= " + "'" + text + "' WHERE idbook = " + "'" + etextnumber + "'");
+					"UPDATE gut.books SET text= " + "'" + text + "' WHERE idBook = " + "'" + etextnumber + "'");
 //			stmt.executeUpdate("UPDATE gutenberg.books SET text=LOAD_FILE(" + "'rawpath'" + ") WHERE idbook = " + "'etextnumber'");
 
 		} catch (SQLException e) { // TODO

@@ -8,15 +8,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.text.StringEscapeUtils;
 
 public class FindGuttenbergInfo {
 
 	private String root;
-    int count=0;
+	int count = 0;
+
 	public FindGuttenbergInfo(String base) {
 		this.root = base;
 		// TODO Auto-generated constructor stub
@@ -37,19 +40,31 @@ public class FindGuttenbergInfo {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String line = null;
 		Book current = new Book();
-
+		String text ="";
 		current.title = "Title";
 		current.author = "Author";
-		while ((line = br.readLine()) != null) {
+		int Linecount = 0;
+		Stream<String> s = br.lines();
+		
+		Iterator<String> i = s.iterator();
+			
+			while ( i.hasNext() ) {
+			line = i.next();
+			if (Linecount < 1000) {
+				current.author = ckstring("Author:", line, current.author);
+				current.title = ckstring("Title:", line, current.title);
+				current.ReleaseDate = ckstring("Release Date:", line, current.ReleaseDate);
+				current.language = ckstring("Language:", line, current.language);
+				Linecount++;
+			}
+			text += line;
 
-			current.author = ckstring("Author:", line, current.author);
-			current.title = ckstring("Title:", line, current.title);
-			current.ReleaseDate = ckstring("Release Date:", line, current.ReleaseDate);
-			current.language = ckstring("Language:", line,current.language);
 		}
+		text = escape(text);
 		count++;
+		current.size = text.length();
 		if (goodbook(current)) {
-			System.out.println(count +" Storing " + current.getAuthor() + " " + current.getTitle() + " "
+			System.out.println(count + " " + current.size +" Storing " + current.getAuthor() + " " + current.getTitle() + " "
 					+ current.getReleaseDate() + " " + current.getEtextNumber());
 		}
 		File f = new File(filename);
@@ -57,14 +72,17 @@ public class FindGuttenbergInfo {
 		current.path = f.toPath().toString();
 
 		current.source = "Gutenberg";
+		current.text = text;
 //		current.text = Files.readAllBytes(Paths.get(current.path));
 		String EtextNumber = current.filename.replace("." + ext, "");
 		current.EtextNumber = EtextNumber;
-//		int size = current.text.length;
+		current.idBook = count;
+		current.verified = false;
 //		System.out.println("Number " +current.EtextNumber + " Title " + current.title);
 //		System.out.println("Adding " +current.getEtextNumber()   + " " + current.getTitle() + " "
 //				+ current.getReleaseDate() + " " + current.getAuthor() + " " + current.path);
 		books.add(current);
+		current = null;
 		br.close();
 		return books;
 	}
@@ -107,8 +125,8 @@ public class FindGuttenbergInfo {
 			line = line.replace(test, "");
 			if (line != "") {
 //				System.out.println("Checking " + test + "  Value " + line);
-			return	StringEscapeUtils.escapeJava(line.trim());
-			
+				return StringEscapeUtils.escapeJava(line.trim());
+
 			}
 		}
 		return CurrentValue;
@@ -167,6 +185,10 @@ public class FindGuttenbergInfo {
 		}
 		return s;
 
+	}
+
+	String escape(String string) {
+		return StringEscapeUtils.escapeJava(string).replace("'", "");
 	}
 
 	public int lastDigit(String s) {
