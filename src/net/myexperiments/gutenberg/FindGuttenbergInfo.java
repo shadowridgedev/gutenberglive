@@ -57,16 +57,9 @@ public class FindGuttenbergInfo {
 				System.out.println("Goodbook " + current.getAuthor() + " " + current.getTitle() + " "
 						+ current.getReleaseDate() + " " + current.getEtextNumber());
 			}
-			if (goodbook(current)) {
-				System.out.println("Goodbook " + current.getAuthor() + " " + current.getTitle() + " "
-						+ current.getReleaseDate() + " " + current.getEtextNumber());
-			}
+
 		}
-		if (goodbook(current)) {
-			System.out.println("Storing " + current.getAuthor() + " " + current.getTitle() + " "
-					+ current.getReleaseDate() + " " + current.getEtextNumber());
-			books.add(current);
-		}
+
 		File f = new File(filename);
 		current.filename = f.getName();
 		current.path = f.toPath().toString().replace(root, "");
@@ -74,15 +67,15 @@ public class FindGuttenbergInfo {
 		current.text = readAllBytes(filename);
 		String EtextNumber = current.filename.replace("." + ext, "");
 		current.EtextNumber = EtextNumber;
-		current.title = "Title";
-		current.author = "Author";
-		if (goodbook(current)) {
-			// System.out.println(current.filename + " " + current.getAuthor() + " " +
-			// current.getTitle() + " "
-			// + current.getReleaseDate() + " " + current.getEtextNumber());
-			// books.add(current);
+//		current.title = "Title";
+//		current.author = "Author";
+/*		if (goodbook(current)) {
+			System.out.println("Storing " + current.getAuthor() + " " + current.getTitle() + " "
+					+ current.getReleaseDate() + " " + current.getEtextNumber());
+			books.add(current);
 		}
-
+		*/
+		books.add(current);
 		br.close();
 		return books;
 	}

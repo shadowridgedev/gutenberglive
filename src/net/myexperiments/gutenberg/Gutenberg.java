@@ -30,79 +30,21 @@ import org.mapdb.HTreeMap;
 import de.citec.scie.ner.db.mapdb.MapDBDatabase;
 
 public class Gutenberg {
-	static Properties propfile;;
-	SolrInputDocumentWriter writer;;
-	static MariaDbHelper dbsql;
-	static FindGuttenbergInfo info;
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		propfile = new Properties();
+	public static void main(String[] args)  {
+		Properties propfile = new Properties();
 		InputStream in = ClassLoader.getSystemResourceAsStream("ward.properties");
-		propfile.load(in);
-		
-		GutenbergMySqlStorage mysqlstore = new GutenbergMySqlStorage(propfile.getProperty("mysqlhost"),propfile.getProperty("mysqluser"),propfile.getProperty("mysqlpassword"));
-		String dbFile = propfile.getProperty("DBLocation");
-		// Initialize a MapDB database
-		DB db = DBMaker.fileDB(new File(dbFile))
-		          .closeOnJvmShutdown()
-		.make();
-		// Create a Map:
-		HashMapMaker<?, ?> myMap = db.hashMap(dbFile);
-		HTreeMap<String, String> myonly= (HTreeMap<String, String>) myMap.create();
-		myonly.put("Dog", "cat");
-		
-		
-		dbsql = new MariaDbHelper();
-		dbsql.createconnection(propfile, "", "", "");
-		
-		ArrayList<Book> only = new 	ArrayList<Book> ();
-		ArrayList<Book> books = new ArrayList<Book>();
-		int numberfiles = 0;
-		
 		try {
-
-
-			String filetype =propfile.getProperty("filetype");
-			numberfiles = Integer.parseInt(propfile.getProperty("numberfiles"));
-	        String createtable = propfile.getProperty("createtable");
-
-			Path root = Paths.get(propfile.getProperty("GutenbergFileBase"));
-			
-			GuttenbergHelper helper = new GuttenbergHelper(propfile);
-			numberfiles = helper.searchForFilesExt(root.toFile(), only, filetype, numberfiles, false);
-
-			info = new FindGuttenbergInfo(root.toString());
-			books = info.getinfo(only, filetype);
-	
-			showcapture(books);
-
-		} catch (Exception e) {
+			propfile.load(in);
+		} catch (IOException e2) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e2.printStackTrace();
 		}
 
-	}
-
-	static void showcapture(ArrayList<Book> books) throws SQLException {
-
-		int count = 0, total = 0;
-		dbsql.openConnection();
-		for (Book thebook : books) {
-			total++;
-			if (!info.goodbook(thebook)) {
-				count++;
-				printbook(thebook);
-				dbsql.InsertBook(thebook);
-			}
+		
+		if(propfile.getProperty("LoadDB").contentEquals("load")) {
+		CreateDB DB = new CreateDB(propfile);
 		}
-		dbsql.closeconnection();
-		System.out.println("Done " + count + " " + total);
-	}
-
-	static void printbook(Book current) {
-		System.out.println("Book " + current.getAuthor() + " " + current.getTitle() + " " + current.getDate() + " "
-				+ current.getEtextNumber());
 	}
 
 	private static void writedoc() {
@@ -112,17 +54,5 @@ public class Gutenberg {
 		// TODO Auto-generated method stub
 
 	}
-
-	/*
-	 * public void testMoreComplex() throws Exception { File file = tmp.newFile();
-	 * DB db =
-	 * DBMaker.fileDB(file).closeOnJvmShutdown().encryptionEnable("password").make()
-	 * ; //a new collection ConcurrentNavigableMap<Integer, String> map =
-	 * db.getTreeMap("collectionName"); map.put(1, "one"); map.put(2, "two"); //
-	 * map.keySet() is now [1,2] assertThat(map).hasSize(2); //persist changes into
-	 * disk db.commit(); map.put(3, "three"); assertThat(map).hasSize(3); //
-	 * map.keySet() is now [1,2,3] //revert recent changes db.rollback(); //
-	 * map.keySet() is now [1,2] assertThat(map).hasSize(2); db.close(); }
-	 */
 
 }

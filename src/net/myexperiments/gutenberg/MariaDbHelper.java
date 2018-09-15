@@ -25,7 +25,7 @@ public class MariaDbHelper {
 		hostname = host;
 		try {
 			// "jdbc:mariadb://localhost:3306/DB?user=root&password=myPassword");
-			String con = "jdbc:mariadb://" + hostname + ":3306/gutenberg?user=" + username + "&password="
+			String con = "jdbc:mariadb://" + hostname + ":3306/gut?user=" + username + "&password="
 					+ mysqlpassword;
 			connection = DriverManager.getConnection(con);
 			stmt = connection.createStatement();
@@ -45,7 +45,7 @@ public class MariaDbHelper {
 		System.out.println("Connecting to database...");
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:mariadb://" + hostname + ":3306/gutenberg?user=" + username + "&password=" + mysqlpassword);
+					"jdbc:mariadb://" + hostname + ":3306/gut?user=" + username + "&password=" + mysqlpassword);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class MariaDbHelper {
 		String title = book.getTitle();
 		String date = book.getDate();
 		String file = book.getFilename();
-		String sql = "INSERT  INTO guttenberg ( Author, Title, Text, Date, Path, File) VALUES ( " + author + "`,`"
+		String sql = "INSERT  INTO gut ( Author, Title, Text, Date, Path, File) VALUES ( " + author + "`,`"
 				+ title + "`," + "LOAD_FILE(`" + path + "`)," + date + "`,`" + path + "`,`" + file + "` )";
 		// "INSERT INTO guttenberg ( Title) VALUES ( 'Unknown')"; // String sql
 		// = "INSERT INTO `guttenberg` ( `Text`) VALUES ( LOAD_FILE( '" + Path + "'))";
